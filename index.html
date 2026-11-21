@@ -207,6 +207,13 @@
   <!-- Live Dashboard -->
   <section id="dashboard" class="pt-32 pb-24 px-6">
     <div class="max-w-7xl mx-auto">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold text-brown">Live Dashboard</h2>
+        <label class="flex items-center gap-3 bg-white border border-brown/20 px-4 py-2 rounded-2xl cursor-pointer hover:bg-orange-50 transition">
+          <span class="text-sm font-semibold text-brown">Demo Mode</span>
+          <input type="checkbox" id="demo-toggle" class="w-10 h-5 rounded-full bg-brown/20 relative appearance-none cursor-pointer transition outline-none accent-orange-500" />
+        </label>
+      </div>
       <div class="flex flex-col lg:flex-row gap-8">
         <!-- Live Video Card -->
         <div class="lg:w-2/3 flex-1">
@@ -432,7 +439,9 @@
       mood: 'happy',
       micOn: false,
       laserOn: false,
-      musicOn: false
+      musicOn: false,
+      demoOn: false,
+      demoInterval: null
     };
 
     // DOM elements
@@ -702,6 +711,38 @@
 
     window.addEventListener('resize', drawMoodChart);
     setTimeout(drawMoodChart, 100);
+
+    // Demo Mode
+    const demoToggle = document.getElementById('demo-toggle');
+    demoToggle.addEventListener('change', () => {
+      state.demoOn = demoToggle.checked;
+      if (state.demoOn) {
+        startDemoLoop();
+        showToast('Demo Mode ON', '🎮');
+      } else {
+        stopDemoLoop();
+        showToast('Demo Mode OFF', '🎮');
+      }
+    });
+
+    function startDemoLoop() {
+      stopDemoLoop();
+      state.demoInterval = setInterval(() => {
+        const newScore = Math.floor(Math.random() * 40) + 30;
+        state.happyScore = newScore;
+        updateHappyCircle();
+        applyTheme(newScore > 60 ? 'happy' : newScore > 40 ? 'bored' : 'anxious');
+        showToast('Bruno is feeling bored, starting Laser Play...', '🔴');
+        if (!state.laserOn) toggleLaser();
+      }, 5000);
+    }
+
+    function stopDemoLoop() {
+      if (state.demoInterval) {
+        clearInterval(state.demoInterval);
+        state.demoInterval = null;
+      }
+    }
 
     // Initialize
     updateHappyCircle();
