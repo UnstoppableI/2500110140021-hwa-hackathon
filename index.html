@@ -211,12 +211,15 @@
         <!-- Live Video Card -->
         <div class="lg:w-2/3 flex-1">
           <div class="dog-card rounded-3xl p-8 shadow-2xl border border-orange-100 relative overflow-hidden">
-            <div class="relative h-96 rounded-2xl overflow-hidden bg-brown/5 mb-6 border-2 border-orange-100 group">
-              <div class="absolute top-4 left-4 z-50 flex items-center gap-2 bg-orange-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg shadow-orange-500/40 live-badge">
-                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> LIVE
+            <div class="relative h-96 rounded-2xl overflow-hidden bg-brown/5 mb-6 border-2 border-orange-100 group flex items-center justify-center" style="background: linear-gradient(135deg, #e8f5e9 0%, #fff8f0 100%);">
+              <div class="absolute top-4 left-4 z-50 flex items-center gap-2 bg-red-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg shadow-red-500/40 live-badge">
+                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> ● LIVE
               </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
-              <img id="dog-img" src="https://images.unsplash.com/photo-1552053831-71594a27631d?auto=format&fit=crop&w=800&q=80" alt="Bruno" class="w-full h-full object-cover opacity-100 transition-opacity duration-500" />
+              <img id="dog-img" src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=1200&auto=format&fit=crop" alt="Bruno" class="w-full h-full object-cover opacity-100 transition-opacity duration-500" onerror="this.style.display='none'; document.getElementById('dog-fallback').style.display='flex';" />
+              <div id="dog-fallback" class="absolute inset-0 flex flex-col items-center justify-center text-brown/40 hidden">
+                <span class="text-6xl mb-2">🐶</span>
+                <p class="text-lg font-semibold">Bruno - Golden Retriever</p>
+              </div>
               <div id="laser-container" class="absolute inset-0 overflow-hidden"></div>
               <div id="laser-text" class="absolute bottom-20 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm font-semibold opacity-0 transition-opacity">Bruno is playing...</div>
               <div class="absolute top-4 right-4 z-50 flex flex-col items-end gap-1 pointer-events-none">
@@ -225,41 +228,14 @@
                 </div>
                 <div class="text-white text-xs font-mono font-bold bg-black/80 px-2 py-1 rounded border border-white/20">02:30 PM</div>
               </div>
-              <div class="absolute bottom-4 left-4 z-50 text-white text-xs font-mono font-bold bg-black/80 px-2 py-1 rounded border border-white/20 pointer-events-none">Living Room - Camera 01</div>
-              <div class="absolute bottom-4 right-4 z-50 flex items-center gap-2 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full text-xs font-bold text-brown border border-white/50 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-green-500"></span> Happy Score: 82%
-              </div>
-            </div>
-            <div class="mb-6">
-              <h3 class="text-lg font-bold text-brown">Bruno - Golden Retriever</h3>
-              <p class="text-sm text-brown/60">Living Room • Camera 01</p>
-            </div>
-            <div class="grid grid-cols-3 gap-4 mb-6">
-              <div class="flex items-center gap-3 p-3 bg-orange-50 rounded-xl border border-orange-100">
-                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 text-sm font-bold">🎤</div>
-                <div>
-                  <div class="text-xs text-brown/50 uppercase tracking-wider font-semibold">Talk</div>
-                  <div class="text-sm font-semibold text-brown">Mic On</div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3 p-3 bg-orange-50 rounded-xl border border-orange-100">
-                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 text-sm font-bold">🎾</div>
-                <div>
-                  <div class="text-xs text-brown/50 uppercase tracking-wider font-semibold">Ball</div>
-                  <div class="text-sm font-semibold text-brown">Ready</div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3 p-3 bg-orange-50 rounded-xl border border-orange-100">
-                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 text-sm font-bold">🔴</div>
-                <div>
-                  <div class="text-xs text-brown/50 uppercase tracking-wider font-semibold">Laser</div>
-                  <div class="text-sm font-semibold text-brown">Standby</div>
-                </div>
+              <div class="absolute bottom-4 right-4 z-50 flex items-center gap-2 bg-black/80 px-2 py-1 rounded border border-white/20 pointer-events-none text-white text-xs font-mono font-bold">CAM-01 • LIVING ROOM</div>
+              <div class="absolute bottom-4 left-4 z-50 flex items-center gap-2 bg-white px-2.5 py-1 rounded-full text-xs font-bold text-brown border border-brown/100 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-green-500"></span> 🐾 Bruno - Golden Retriever
               </div>
             </div>
             <div class="flex gap-4">
               <button onclick="toggleMic()" id="mic-btn" class="flex-1 bg-white border border-brown/20 text-brown font-semibold px-6 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-orange-500 hover:text-white transition-all shadow-sm">
-                <span>🎤</span> Talk to Bruno
+                <span id="mic-icon">🎤</span> <span id="mic-text">Talk to Bruno</span>
               </button>
               <button onclick="throwBall()" class="flex-1 bg-white border border-brown/20 text-brown font-semibold px-6 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-orange-500 hover:text-white transition-all shadow-sm">
                 <span>🎾</span> Throw Ball
@@ -580,11 +556,19 @@
     function toggleMic() {
       state.micOn = !state.micOn;
       const btn = document.getElementById('mic-btn');
+      const icon = document.getElementById('mic-icon');
+      const text = document.getElementById('mic-text');
       if (state.micOn) {
-        btn.classList.add('ring-2', 'ring-orange-300');
-        showToast('Microphone enabled 🎤', '🎤');
+        btn.classList.remove('bg-white', 'border-brown/20', 'text-brown');
+        btn.classList.add('bg-green-500', 'text-white', 'border-green-500/30');
+        icon.textContent = '🔴';
+        text.textContent = 'Listening...';
+        showToast('Microphone enabled - Listening to Bruno 🎤', '🎤');
       } else {
-        btn.classList.remove('ring-2', 'ring-orange-300');
+        btn.classList.add('bg-white', 'border-brown/20', 'text-brown');
+        btn.classList.remove('bg-green-500', 'text-white', 'border-green-500/30');
+        icon.textContent = '🎤';
+        text.textContent = 'Talk to Bruno';
         showToast('Microphone disabled', '🎤');
       }
     }
